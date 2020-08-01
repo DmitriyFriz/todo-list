@@ -5,30 +5,54 @@ import './TodoListItem.scss';
 
 class TodoListItem extends React.Component {
 
+  state = {
+    done: false,
+    important: false
+  }
+
+  onLabelClick = () => {
+    this.setState(({done}) => {
+      return { done: !done }
+    });
+  };
+
+  onMarkImportant = () => {
+    this.setState(({important}) => {
+      return { important: !important}
+    });
+  }
+
   render() {
+    const { label, onDeleted } = this.props;
+    const { done, important } = this.state;
 
-    const { label, important = false } = this.props;
+    let classNameList = 'todo-list-item';
 
-    const style = {
-      color: important ? 'steelblue' : 'black',
-      fontWeight: important ? 'bold' : 'normal'
-    };
+    if (done) {
+      classNameList +=  ' done';
+    }
+
+    if (important) {
+      classNameList += ' important';
+    }
 
     return (
-      <span className="todo-list-item">
+      <span className= { classNameList }>
         <span
           className="todo-list-item-label"
-          style={style}>
+          onClick={ this.onLabelClick }>
           {label}
         </span>
 
         <button type="button"
-                className="btn btn-outline-success btn-sm float-right">
+          className="btn btn-outline-success btn-sm float-right"
+          onClick={ this.onMarkImportant }>
           <i className="fa fa-exclamation" />
         </button>
 
         <button type="button"
-                className="btn btn-outline-danger btn-sm float-right">
+          className="btn btn-outline-danger btn-sm float-right"
+          onClick= {onDeleted}>
           <i className="fa fa-trash-o" />
         </button>
       </span>
