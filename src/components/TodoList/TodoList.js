@@ -16,8 +16,8 @@ const TodoList = ({ todos }) => {
       <li key={id} className="list-group-item">
         <TodoListItem {...itemProps} />
       </li>
-    )
-  })
+    );
+  });
 
   return (
     <ul className="list-group todo-list">
